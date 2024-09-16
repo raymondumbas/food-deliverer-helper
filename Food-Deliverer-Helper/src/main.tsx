@@ -10,6 +10,12 @@ if(!localStorage.getItem("activeDays")){
   
 }
 
+if(!localStorage.getItem("gasPrices")){
+
+  localStorage.setItem("gasPrices",JSON.stringify({}))
+  
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

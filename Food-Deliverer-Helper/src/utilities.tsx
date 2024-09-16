@@ -16,7 +16,7 @@ function getWeekDates(inputDate: Date): Date[]{
 
     for(let i = 0; i < 7; i++){
         
-        weekDates.push(currentDate);
+        weekDates.push(new Date(currentDate));
         currentDate.setDate(currentDate.getDate() + 1);
 
     }

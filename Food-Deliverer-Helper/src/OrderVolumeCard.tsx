@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getMonthlyWeekStarts, getWeekDates } from './utilities.tsx';
 import { Entry } from './types';
 
-function ProfitCard() {
+function OrderVolumeCard(){
     const [selectedWeekRange, setSelectedWeekRange] = useState<string>("");
     const [weekRanges, setWeekRanges] = useState<JSX.Element[]>([]);
     const [dayElements, setDayElements] = useState<JSX.Element[]>([]);
@@ -46,35 +46,16 @@ function ProfitCard() {
         // Generate day elements
         const elements = weekDates.map(day => {
             const currentEntries = entriesMap.get(day.toDateString()) || [];
-
-            let dailyPay:number  = 0;
-            let dailyMiles: number = 0;
            
+            let orderVolume = currentEntries.length;
 
-            currentEntries.forEach(entry => {
-                dailyPay += Number(entry.pay);
-                dailyMiles += Number(entry.miles);
-            });
-            
-            const gasPrices: {[key: string]: string} = JSON.parse(localStorage.getItem(day.toDateString()) || "{}");
-            const currentGasPrice = Number(gasPrices[day.toDateString()]) || 0;
-            console.log(day.toDateString());
-            console.log(gasPrices)
-            let formattedGasPrice:string = "Gas Price: ";
-            console.log(currentGasPrice)
-            if(currentGasPrice != 0){
-                formattedGasPrice += "$" + currentGasPrice;
-            }
-            else{
-                formattedGasPrice += "n/a (gas price not found)"
-            }
+            console.log(orderVolume);
+           
 
             return (
                 <div key={day.toDateString()}>
                     {day.toLocaleDateString()} <br />
-                    ${dailyPay}<br />
-                    {dailyMiles}mi <br />
-                    {formattedGasPrice}
+                    {orderVolume}
                 </div>
             );
         });
@@ -94,5 +75,4 @@ function ProfitCard() {
         </>
     );
 }
-
-export default ProfitCard;
+export default OrderVolumeCard;

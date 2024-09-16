@@ -1,5 +1,4 @@
 function NewEntry() {
-
   return(
   <>
       <form
@@ -7,19 +6,20 @@ function NewEntry() {
           e.preventDefault();
 
           const target = e.target as typeof e.target & {
+            date: {value:string}
+            time: {value: string}
             miles: { value: number };
             pay: { value: number };
           };
 
-          
+          const date = new Date(target.date.value)
+          const time = target.time.value;
           const miles = target.miles.value; 
           const pay = target.pay.value; 
+         
+          const entryDate = date.toDateString();
 
-          const today = new Date();
-          const todayDate = today.toDateString();
-          const todayTime = today.toLocaleTimeString();
-
-          const storageString = localStorage.getItem((todayDate));
+          const storageString = localStorage.getItem((entryDate));
   
           let todayEntries;
 
@@ -37,8 +37,7 @@ function NewEntry() {
             todayEntries = [];
 
             let activeDays = JSON.parse(localStorage.getItem("activeDays") || "null");
-            console.log(activeDays)
-            activeDays.push(todayDate)
+            activeDays.push(entryDate)
             localStorage.setItem("activeDays", JSON.stringify(activeDays));
 
             console.log("Initializing today's entries")
@@ -46,19 +45,28 @@ function NewEntry() {
           }
 
           todayEntries.push({
-            "date": todayDate,
-            "time": todayTime,
+            "date": entryDate,
+            "time": time,
             "miles": miles,
             "pay": pay
           });
 
           console.log(todayEntries);
-          localStorage.setItem(todayDate, JSON.stringify(todayEntries));
+          localStorage.setItem(entryDate, JSON.stringify(todayEntries));
 
           target.miles.value = 0; 
           target.pay.value = 0;
         }}
       >
+      <label>
+        Date:
+        <input type="date" name="date" />
+      </label>
+
+      <label>
+        Time:
+        <input type="time" name="time" />
+      </label>
 
       <label>
         Miles:

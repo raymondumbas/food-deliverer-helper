@@ -1,6 +1,7 @@
 function NewEntry() {
   return(
   <>
+      <h1>New Entry</h1>
       <form
         onSubmit={(e: React.SyntheticEvent) => {
           e.preventDefault();

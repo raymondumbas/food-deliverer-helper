@@ -85,6 +85,7 @@ function ProfitCard() {
 
     return (
         <>
+            <h1>Profit</h1>
             <label> Choose a week:
                 <select value={selectedWeekRange} onChange={updateRange}>
                     {weekRanges}
